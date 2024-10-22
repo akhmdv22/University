@@ -23,7 +23,7 @@ mongoose.connect(config.connectionString).then(()=> {
   app.listen(config.port, () => {
     console.log(`Server is running on port ` + config.port);
   });
-}).catch (()=> {
+}).catch ((err)=> {
     console.error('MongoDB connection error:', err)
 });
 
