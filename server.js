@@ -17,13 +17,14 @@ app.get('/', (req, res) => {
 })
 
 //Database
-mongoose.connect(config.connectionString).then(()=> {
+mongoose.connect(config.connectionString)
+.then(()=> {
     console.log('MongoDB connected');
-
   app.listen(config.port, () => {
     console.log(`Server is running on port ` + config.port);
   });
-}).catch ((err)=> {
+})
+.catch ((err)=> {
     console.error('MongoDB connection error:', err)
 });
 
