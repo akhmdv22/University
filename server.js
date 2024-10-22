@@ -12,6 +12,10 @@ app.use(cors());
 app.use(EmployeeRouter);
 app.use(MessageRouter);
 
+app.get('/', (req, res) => {
+  res.send('Home page');
+})
+
 //Database
 mongoose.connect(config.connectionString).then(()=> {
     console.log('MongoDB connected');
