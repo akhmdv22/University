@@ -13,7 +13,12 @@ module.exports = class EmployeeService {
     }
 
     async GetEmployeeById(id){
-        return await EmployeeModel.findById(id);
+        const result = await EmployeeModel.findById(id);
+        if(result){
+            return result
+        }else{
+            throw new Error('notFound');
+        }
     }
     async DeleteEmployeeById(id){
         return await EmployeeModel.findByIdAndDelete(id);

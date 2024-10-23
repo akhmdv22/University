@@ -1,0 +1,6 @@
+result = await EmployeeModel.findById(id);
+        if(result){
+            return await result
+        }else{
+            throw new Error('notFound');
+        }

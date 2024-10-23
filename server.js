@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const config = require('./configurations/config');
+const errorHandler = require('./middlewares/errorHandler');
 const cors = require("cors");
 const path = require("path");
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 app.use(EmployeeRouter);
 app.use(MessageRouter);
+app.use(errorHandler);
 
 app.get('/', (req, res)=>{
   res.sendFile(path.join(__dirname,'index.html'));

@@ -1,5 +1,6 @@
 const EmployeeService = require('../Services/Employee');
 const employeeService = new EmployeeService();
+const employeeErrors = require('../errorMessages/Employee');
 
 module.exports = class EmployeeController {
 
@@ -23,13 +24,12 @@ module.exports = class EmployeeController {
         }
     }
     async GetEmployeeById(req, res, next){
-        const id = req.query.id
-        const result = await employeeService.GetEmployeeById(id);
-
-        if (result) {
-            res.send(result);
-        } else {
-            res.send('error');
+        try{
+            const id = req.query.id
+            const result = await employeeService.GetEmployeeById(id);  
+            res.send(result); 
+        } catch (error) {
+            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
         }
 
     }
@@ -39,7 +39,7 @@ module.exports = class EmployeeController {
         const result = await employeeService.DeleteEmployeeById(id);
 
         if (result) {
-            res.send('Xodim bazadan olib tashlandi.');
+            res.send('Xodim bazadan olib tashlandi!');
         } else {
             res.send('error');
         }
