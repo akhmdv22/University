@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const config = require('./configurations/config');
 const cors = require("cors");
+const path = require("path");
 
 const EmployeeRouter = require('./Routes/Employee');
 const MessageRouter = require('./Routes/Message');
@@ -12,9 +13,9 @@ app.use(cors());
 app.use(EmployeeRouter);
 app.use(MessageRouter);
 
-app.get('/', (req, res) => {
-  res.send('Home page');
-})
+app.get('/', (req, res)=>{
+  res.sendFile(path.join(__dirname,'index.html'));
+});
 
 //Database
 mongoose.connect(config.connectionString)
