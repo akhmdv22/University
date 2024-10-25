@@ -9,7 +9,7 @@ module.exports = class EmployeeController {
         const result = await employeeService.CreateEmployee(employee);
 
         if (result){
-            res.send(result);
+            res.json(result);
         } else {
             res.send('error');
         }
@@ -18,7 +18,7 @@ module.exports = class EmployeeController {
         const results = await employeeService.GetAllEmployees();
 
         if (results) {
-            res.send(results);
+            res.json(results);
         } else {
             res.send('error');
         }
@@ -27,7 +27,7 @@ module.exports = class EmployeeController {
         try{
             const id = req.query.id
             const result = await employeeService.GetEmployeeById(id);  
-            res.send(result); 
+            res.json(result); 
         } catch (error) {
             next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
         }
@@ -35,28 +35,24 @@ module.exports = class EmployeeController {
     }
 
     async DeleteEmployeeById(req, res, next){
-        const id = req.query.id
-        const result = await employeeService.DeleteEmployeeById(id);
-
-        if (result) {
-            res.send('Xodim bazadan olib tashlandi!');
-        } else {
-            res.send('error');
+        try {
+            const id = req.query.id
+            const result = await employeeService.DeleteEmployeeById(id);
+            res.send('Xodim bazadan olib tashlandi!'); 
+        } catch(error){
+            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
         }
-
     }
 
     async UpdateEmployee(req, res, next){
-        const id = req.query.id
-        const employee = req.body
-        const result = await employeeService.UpdateEmployee(id, employee);
-
-        if (result) {
-            res.send(result);
-        } else {
-            res.send('error');
+        try{
+            const id = req.query.id
+            const employee = req.body
+            const result = await employeeService.UpdateEmployee(id, employee);
+            res.json(result);
+        }catch(error){
+            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
         }
-
     }
 
 }

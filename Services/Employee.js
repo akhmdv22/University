@@ -21,10 +21,20 @@ module.exports = class EmployeeService {
         }
     }
     async DeleteEmployeeById(id){
-        return await EmployeeModel.findByIdAndDelete(id);
+        const result = await EmployeeModel.findByIdAndDelete(id);
+        if(result){
+            return result
+        }else{
+            throw new Error('notFound');
+        }
     }
 
     async UpdateEmployee(id, updatedEmployee){
-        return await EmployeeModel.findByIdAndUpdate(id, updatedEmployee, {new: true});
+       const result = await EmployeeModel.findByIdAndUpdate(id, updatedEmployee, {new: true});
+        if(result){
+            return result
+        }else{
+            throw new Error('notFound');
+        }
     }
 }
