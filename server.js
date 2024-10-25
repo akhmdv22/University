@@ -16,11 +16,12 @@ const AdminAuthRouter = require('./Routes/AdminAuth');
 connectDB();
 app.use(express.json());
 app.use(cookieParser());
+app.use(errorHandler);
 app.use(cors());
+
 app.use(AdminAuthRouter);
 app.use(EmployeeRouter);
 app.use(MessageRouter);
-app.use(errorHandler);
 
 app.get('/', (req, res)=>{
   res.sendFile(path.join(__dirname,'index.html'));
