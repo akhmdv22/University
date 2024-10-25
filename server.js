@@ -1,18 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const config = require('./configurations/config');
-const errorHandler = require('./middlewares/errorHandler');
 const cors = require("cors");
 const path = require("path");
+const cookieParser = require('cookie-parser');
+
+const config = require('./configurations/config');
+const errorHandler = require('./middlewares/errorHandler');
 const connectDB = require('./db');
 
 const EmployeeRouter = require('./Routes/Employee');
 const MessageRouter = require('./Routes/Message');
+const AdminAuthRouter = require('./Routes/AdminAuth');
 
 connectDB();
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
+app.use(AdminAuthRouter);
 app.use(EmployeeRouter);
 app.use(MessageRouter);
 app.use(errorHandler);

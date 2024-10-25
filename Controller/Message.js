@@ -33,7 +33,6 @@ module.exports = class MessageController {
         }
 
     }
-
     async DeleteMessageById(req, res, next){
         const id = req.query.id
         const result = await messageService.DeleteMessageById(id);
