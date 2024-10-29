@@ -38,7 +38,7 @@ module.exports = class MessageController {
         try{
             const id = req.query.id
             const result = await messageService.DeleteMessageById(id);
-            res.json('Xodim bazadan olib tashlandi!');
+            res.json('Ariza bazadan olib tashlandi!');
         }catch(error){
             next({status: messageErrors[error.message]?.status, message: messageErrors[error.message]?.message});
         }

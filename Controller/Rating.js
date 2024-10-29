@@ -7,7 +7,7 @@ module.exports = class RatingController {
         const { rating } = req.body;
     try {
         const employee = await Employee.findById(req.params.id);
-        if (!employee) return res.status(404).send('Employee not found.');
+        if (!employee) return res.status(404).send(`Xodim topilmadi`);
 
         employee.ratings.push({ rating });
         await employee.save();
@@ -19,7 +19,7 @@ module.exports = class RatingController {
     async getRatings(req, res){
         try {
             const employee = await Employee.findById(req.params.id);
-            if (!employee) return res.status(404).send('Employee not found.');
+            if (!employee) return res.status(404).send(`Xodim topilmadi`);
     
             const totalRatings = employee.ratings.length;
             const averageRating = totalRatings > 0
