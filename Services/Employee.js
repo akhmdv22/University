@@ -17,7 +17,7 @@ module.exports = class EmployeeService {
         if(result){
             return result
         }else{
-            throw new Error('notFound');
+            throw new Error('employeeNotFound');
         }
     }
     async DeleteEmployeeById(id){
@@ -25,7 +25,7 @@ module.exports = class EmployeeService {
         if(result){
             return result
         }else{
-            throw new Error('notFound');
+            throw new Error('employeeNotFound');
         }
     }
 
@@ -33,10 +33,9 @@ module.exports = class EmployeeService {
        const result = await EmployeeModel.findByIdAndUpdate(id, updatedEmployee, {new: true});
 
         if(result){
-
             return result
         }else{
-            throw new Error('notFound');
+            throw new Error('employeeNotFound');
         }
     }
 }

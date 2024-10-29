@@ -1,5 +1,6 @@
 const MessageService = require('../Services/Message');
 const messageService = new MessageService();
+const messageErrors = require('../errorMessages/ErrorMsg');
 
 module.exports = class MessageController {
 
@@ -23,37 +24,35 @@ module.exports = class MessageController {
         }
     }
     async GetMessageById(req, res, next){
-        const id = req.query.id
-        const result = await messageService.GetMessageById(id);
-
-        if (result) {
+        try {
+            const id = req.query.id
+            const result = await messageService.GetMessageById(id);
             res.send(result);
-        } else {
-            res.send('error');
+        }catch(error){
+            next({status: messageErrors[error.message]?.status, message: messageErrors[error.message]?.message});
         }
+        
 
     }
     async DeleteMessageById(req, res, next){
-        const id = req.query.id
-        const result = await messageService.DeleteMessageById(id);
-
-        if (result) {
-            res.send('Xodim bazadan olib tashlandi.');
-        } else {
-            res.send('error');
+        try{
+            const id = req.query.id
+            const result = await messageService.DeleteMessageById(id);
+            res.json('Xodim bazadan olib tashlandi!');
+        }catch(error){
+            next({status: messageErrors[error.message]?.status, message: messageErrors[error.message]?.message});
         }
 
     }
 
     async UpdateMessage(req, res, next){
-        const id = req.query.id
-        const employee = req.body
-        const result = await messageService.UpdateMessage(id, employee);
-
-        if (result) {
-            res.send(result);
-        } else {
-            res.send('error');
+        try{
+            const id = req.query.id
+            const employee = req.body
+            const result = await messageService.UpdateMessage(id, employee);
+            res.json(result);
+        }catch(error){
+            next({status: messageErrors[error.message]?.status, message: messageErrors[error.message]?.message});
         }
 
     }

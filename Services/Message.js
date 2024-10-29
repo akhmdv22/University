@@ -13,13 +13,28 @@ module.exports = class MessageService {
     }
 
     async GetMessageById(id){
-        return await MessageModel.findById(id);
+        const result = await MessageModel.findById(id);
+        if(result){
+            return result
+        }else{
+            throw new Error('messageNotFound');
+        }
     }
     async DeleteMessageById(id){
-        return await MessageModel.findByIdAndDelete(id);
+        const result = await MessageModel.findByIdAndDelete(id);
+        if(result){
+            return result
+        }else{
+            throw new Error('messageNotFound');
+        }
     }
 
     async UpdateMessage(id, updatedMessage){
-        return await MessageModel.findByIdAndUpdate(id, updatedMessage, {new: true});
+        const result = await MessageModel.findByIdAndUpdate(id, updatedMessage, {new: true});
+        if(result){
+            return result
+        }else{
+            throw new Error('messageNotFound');
+        }
     }
 }

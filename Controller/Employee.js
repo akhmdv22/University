@@ -1,6 +1,6 @@
 const EmployeeService = require('../Services/Employee');
 const employeeService = new EmployeeService();
-const employeeErrors = require('../errorMessages/Employee');
+const employeeErrors = require('../errorMessages/ErrorMsg');
 
 module.exports = class EmployeeController {
 
