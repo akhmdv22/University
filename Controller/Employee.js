@@ -6,6 +6,7 @@ module.exports = class EmployeeController {
 
     async CreateEmployee(req, res, next){
         let employee = req.body;
+        
         const result = await employeeService.CreateEmployee(employee);
 
         if (result){
@@ -49,6 +50,7 @@ module.exports = class EmployeeController {
             const id = req.query.id
             const employee = req.body
             const result = await employeeService.UpdateEmployee(id, employee);
+        
             res.json(result);
         }catch(error){
             next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});

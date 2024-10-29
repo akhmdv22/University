@@ -1,4 +1,11 @@
+const { number } = require('joi');
 const mongoose = require('mongoose');
+
+const RatingSchema = new mongoose.Schema({
+
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  
+});
 
 const employeeSchema = new mongoose.Schema({
       name: {
@@ -21,7 +28,8 @@ const employeeSchema = new mongoose.Schema({
         unique: true,
         minlength: 4,
         maxlength: 20
-      }
+      },
+      ratings: [RatingSchema],
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);

@@ -31,7 +31,9 @@ module.exports = class EmployeeService {
 
     async UpdateEmployee(id, updatedEmployee){
        const result = await EmployeeModel.findByIdAndUpdate(id, updatedEmployee, {new: true});
+
         if(result){
+
             return result
         }else{
             throw new Error('notFound');
