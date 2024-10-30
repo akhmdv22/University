@@ -3,7 +3,6 @@ const EmployeeModel = require('../Models/Employee');
 module.exports = class EmployeeService {
 
     async CreateEmployee(employee){
-
         const employeeToAdd = new EmployeeModel(employee);
         return await employeeToAdd.save();
     }

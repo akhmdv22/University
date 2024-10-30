@@ -13,6 +13,7 @@ const MessageRouter = require('./Routes/Message');
 const AdminAuthRouter = require('./Routes/AdminAuth');
 const RatingRouter = require('./Routes/Rating');
 const ExcelRouter = require('./Routes/Excel');
+const UploadImageRouter = require('./Routes/UploadImage');
 const errorHandler = require('./middlewares/errorHandler');
 
 connectDB();
@@ -25,6 +26,7 @@ app.use(EmployeeRouter);
 app.use(MessageRouter);
 app.use(RatingRouter);
 app.use(ExcelRouter);
+app.use(UploadImageRouter);
 app.use(errorHandler);
 
 app.get('/', (req, res)=>{

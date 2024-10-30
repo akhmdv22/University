@@ -1,4 +1,4 @@
-const { number } = require('joi');
+const { number, required } = require('joi');
 const mongoose = require('mongoose');
 
 const RatingSchema = new mongoose.Schema({
@@ -28,6 +28,9 @@ const employeeSchema = new mongoose.Schema({
         unique: true,
         minlength: 4,
         maxlength: 20
+      },
+      profileImageUrl: { 
+        type: String,
       },
       ratings: [RatingSchema],
 });
