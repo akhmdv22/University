@@ -4,6 +4,8 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+
 
 const config = require('./configurations/config');
 const connectDB = require('./db');
@@ -20,6 +22,7 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(helmet());
 
 app.use(AdminAuthRouter);
 app.use(EmployeeRouter);

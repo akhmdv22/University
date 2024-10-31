@@ -12,7 +12,8 @@ module.exports = class EmployeeService {
     }
 
     async GetEmployeeById(id){
-        const result = await EmployeeModel.findById(id);
+        const result = await EmployeeModel.findById(id).select('-ratings');
+
         if(result){
             return result
         }else{

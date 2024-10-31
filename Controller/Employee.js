@@ -4,57 +4,75 @@ const employeeErrors = require('../errorMessages/ErrorMsg');
 
 module.exports = class EmployeeController {
 
-    async CreateEmployee(req, res, next){
-        let employee = req.body;
-        
-        const result = await employeeService.CreateEmployee(employee);
-
-        if (result){
-            res.json(result);
-        } else {
-            res.send('error');
-        }
-    }
-    async GetAllEmployees(req, res, next){
-        const results = await employeeService.GetAllEmployees();
-
-        if (results) {
-            res.json(results);
-        } else {
-            res.send('error');
-        }
-    }
-    async GetEmployeeById(req, res, next){
-        try{
-            const id = req.query.id
-            const result = await employeeService.GetEmployeeById(id);  
-            res.json(result); 
-        } catch (error) {
-            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
-        }
-
-    }
-
-    async DeleteEmployeeById(req, res, next){
+    async CreateEmployee(req, res, next) {
         try {
-            const id = req.query.id
+            const employee = req.body;
+            const result = await employeeService.CreateEmployee(employee);
+
+            if (result) {
+                res.json(result);
+            } else {
+                next({ status: 400, message: "Employee could not be created." });
+            }
+        } catch (error) {
+            next({ status: employeeErrors[error.message]?.status || 500, message: employeeErrors[error.message]?.message || "Server Error" });
+        }
+    }
+
+    async GetAllEmployees(req, res, next) {
+        try {
+            const results = await employeeService.GetAllEmployees();
+            if (results) {
+                res.json(results);
+            } else {
+                next({ status: 404, message: "No employees found." });
+            }
+        } catch (error) {
+            next({ status: employeeErrors[error.message]?.status || 500, message: employeeErrors[error.message]?.message || "Server Error" });
+        }
+    }
+
+    async GetEmployeeById(req, res, next) {
+        try {
+            const id = req.query.id;
+            const result = await employeeService.GetEmployeeById(id);
+            if (result) {
+                res.json(result);
+            } else {
+                next({ status: 404, message: "Employee not found." });
+            }
+        } catch (error) {
+            next({ status: employeeErrors[error.message]?.status || 500, message: employeeErrors[error.message]?.message || "Server Error" });
+        }
+    }
+
+    async DeleteEmployeeById(req, res, next) {
+        try {
+            const id = req.query.id;
             const result = await employeeService.DeleteEmployeeById(id);
-            res.send('Xodim bazadan olib tashlandi!'); 
-        } catch(error){
-            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
+            if (result) {
+                res.json({ message: "Employee successfully deleted!" });
+            } else {
+                next({ status: 404, message: "Employee not found." });
+            }
+        } catch (error) {
+            next({ status: employeeErrors[error.message]?.status || 500, message: employeeErrors[error.message]?.message || "Server Error" });
         }
     }
 
-    async UpdateEmployee(req, res, next){
-        try{
-            const id = req.query.id
-            const employee = req.body
+    async UpdateEmployee(req, res, next) {
+        try {
+            const id = req.query.id;
+            const employee = req.body;
             const result = await employeeService.UpdateEmployee(id, employee);
-        
-            res.json(result);
-        }catch(error){
-            next({status: employeeErrors[error.message]?.status, message: employeeErrors[error.message]?.message});
+
+            if (result) {
+                res.json(result);
+            } else {
+                next({ status: 404, message: "Employee could not be updated." });
+            }
+        } catch (error) {
+            next({ status: employeeErrors[error.message]?.status || 500, message: employeeErrors[error.message]?.message || "Server Error" });
         }
     }
-
 }

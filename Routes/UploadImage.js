@@ -1,21 +1,23 @@
+const express = require('express');
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
 const Employee = require("../Models/Employee");
-const router = require("./Employee");
+const router = express.Router();
+const config = require('../configurations/config');
 
 
 // Configure AWS SDK for S3
 const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS_KEY,
-  secretAccessKey: process.env.S3_ACCESS_SECRET,
+  accessKeyId: config.accessKeyId,
+  secretAccessKey: config.secretAccessKey,
 });
 
 // Configure multer for S3 storage
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: process.env.AWS_BUCKET_NAME,
+    bucket: config.awsBucketName,
     acl: "public-read", // Allows public read access
     key: (req, file, cb) => {
       cb(null, `profile-images/${Date.now()}_${file.originalname}`); // Define file path in S3

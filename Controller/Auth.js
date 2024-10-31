@@ -5,13 +5,18 @@ const config = require('../configurations/config');
     
   const register = async (req, res, next) => {
         const { name, surname, email, password } = req.body;
+
+        const oldEmail = await Admin.findOne({email});
+        if(oldEmail){
+          return res.send({status: 'error', message: `Email allready taken!`});
+        }
       
         try {
           const salt = await bcrypt.genSalt();
           const hashedPassword = await bcrypt.hash(password, salt);
           const admin = new Admin({ name, surname, email, password: hashedPassword });
           await admin.save();
-          res.json({ message: `Muvaffaqiyatli ro'yxatdan o'tildi!`});
+            res.json({ message: `Muvaffaqiyatli ro'yxatdan o'tildi!`});
         } catch (error) {
           next(error);
         }
