@@ -1,1 +1,5 @@
-{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
+{
+    "redirects": [
+      { "source": "/message", "destination": "/message/all", "statusCode": 301 }
+    ]
+  }
