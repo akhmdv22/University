@@ -6,7 +6,6 @@ const EmployeeValidator = require('../validations/Employee');
 const {validate} = require('express-validation');
 const { adminRole } = require('../middlewares/auth');
 
-
 router.post('/employee/create', adminRole, validate(EmployeeValidator.createORupdateEmployeeValidator), employeeController.CreateEmployee);
 router.get('/employee/all', employeeController.GetAllEmployees);
 router.get('/employee/employeeByID', employeeController.GetEmployeeById);
