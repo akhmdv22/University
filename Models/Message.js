@@ -3,6 +3,15 @@ const mongoose = require('mongoose');
 // block, room, msg
 
 const messageSchema = new mongoose.Schema({
+
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
       block: {
         type: String,
         required: true,
