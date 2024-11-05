@@ -13,6 +13,8 @@ module.exports = class ExcelController{
      
             worksheet.columns = [
                 { header: 'ID', key: '_id', width: 30 },
+                { header: 'Ism', key: 'firstName', width: 30 },
+                { header: 'Familya', key: 'lastName', width: 30 },
                 { header: 'Blok', key: 'block', width: 15 },
                 { header: 'Xona', key: 'room', width: 15 },
                 { header: 'Ariza', key: 'message', width: 100 },
@@ -23,6 +25,8 @@ module.exports = class ExcelController{
             messages.forEach(message => {
                 worksheet.addRow({
                     _id: message._id,
+                    firstName: message.firstName,
+                    lastName: message.lastName,
                     block: message.block,
                     room: message.room,
                     message: message.message,
